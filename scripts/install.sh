@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Downloads, verifies and unpacks the release into $DIR unless the cache already holds it.
 set -euo pipefail
-REPO=matteopolak/jai
+REPO=matteopolak/jacket
 
-if [ -f "$DIR/$ROOT/.setup-jai-complete" ]; then
+if [ -f "$DIR/$ROOT/.setup-jacket-complete" ]; then
   echo "Using the cached toolchain in $DIR"
   exit 0
 fi
@@ -40,5 +40,5 @@ esac
 rm -rf "$DIR"
 mkdir -p "$DIR"
 mv "$tmp/unpack/$ROOT" "$DIR/$ROOT"
-touch "$DIR/$ROOT/.setup-jai-complete"
+touch "$DIR/$ROOT/.setup-jacket-complete"
 echo "Installed Jai $VERSION in $DIR/$ROOT"

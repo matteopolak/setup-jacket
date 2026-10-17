@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Works out the version, platform and archive name; writes them to $GITHUB_OUTPUT.
 set -euo pipefail
-REPO=matteopolak/jai
+REPO=matteopolak/jacket
 
 case "${RUNNER_OS:-}/${RUNNER_ARCH:-}" in
   Linux/X64) platform=linux-x64 ;;
@@ -10,7 +10,7 @@ case "${RUNNER_OS:-}/${RUNNER_ARCH:-}" in
   macOS/X64) platform=macos-x64 ;;
   Windows/X64) platform=windows-x64 ;;
   Windows/ARM64) platform=windows-arm64 ;;
-  *) echo "::error::setup-jai does not support ${RUNNER_OS:-unknown}/${RUNNER_ARCH:-unknown}. Supported: Linux x64/arm64, macOS arm64/x64, Windows x64/arm64." >&2; exit 1 ;;
+  *) echo "::error::setup-jacket does not support ${RUNNER_OS:-unknown}/${RUNNER_ARCH:-unknown}. Supported: Linux x64/arm64, macOS arm64/x64, Windows x64/arm64." >&2; exit 1 ;;
 esac
 
 version="${INPUT_VERSION:-latest}"
@@ -29,20 +29,18 @@ if [ -z "$version" ] || [ "$version" = latest ]; then
 fi
 case "$version" in
   [0-9]*.[0-9]*.[0-9]*) ;;
-  *) echo "::error::version '$version' is not 'latest' or a version like 0.4.3" >&2; exit 1 ;;
+  *) echo "::error::version '$version' is not 'latest' or a version like 0.18.0" >&2; exit 1 ;;
 esac
 case "$version" in *[!0-9A-Za-z.+-]*) echo "::error::invalid version '$version'" >&2; exit 1 ;; esac
 
-# Releases up to 0.4.0 ship jaic-<platform>; later ones jai-<platform>.
-if [ "$(printf '%s\n%s\n' "$version" 0.4.0 | sort -V | tail -n 1)" = 0.4.0 ]; then prefix=jaic; else prefix=jai; fi
 ext=tar.gz
 case "$platform" in windows-*) ext=zip ;; esac
 temp="${RUNNER_TOOL_CACHE:-${RUNNER_TEMP:-/tmp}}"
 {
   echo "version=$version"
   echo "platform=$platform"
-  echo "root=$prefix-$platform"
-  echo "archive=$prefix-$platform.$ext"
-  echo "dir=$temp/setup-jai/$version/$platform"
+  echo "root=jacket-$platform"
+  echo "archive=jacket-$platform.$ext"
+  echo "dir=$temp/setup-jacket/$version/$platform"
 } >> "$GITHUB_OUTPUT"
-echo "Resolved Jai $version for $platform"
+echo "Resolved Jacket $version for $platform"

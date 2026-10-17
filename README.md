@@ -1,9 +1,9 @@
-# setup-jai
+# setup-jacket
 
-Install the [Jai toolchain](https://github.com/matteopolak/jai) (`jaic`, `jaifmt`, `jailint`, `jailsp`) in GitHub Actions.
+Install [Jacket](https://github.com/matteopolak/jacket), the Jai toolchain (`jaic`, `jaifmt`, `jailint`, `jailsp`) in GitHub Actions.
 
 ```yaml
-- uses: matteopolak/setup-jai@v1
+- uses: matteopolak/setup-jacket@v1
 - run: jaic --version
 ```
 
@@ -11,7 +11,7 @@ Install the [Jai toolchain](https://github.com/matteopolak/jai) (`jaic`, `jaifmt
 
 | Input | Default | Description |
 | --- | --- | --- |
-| `version` | `latest` | `latest`, or a release such as `0.4.3` or `v0.4.3`. |
+| `version` | `latest` | `latest`, or a release such as `0.18.0` or `v0.18.0`. |
 | `tools` | `all` | Comma or space separated subset of `jaic`, `jaifmt`, `jailint`, `jailsp`, or `all`. |
 | `cache` | `true` | Cache the unpacked toolchain, keyed by version and platform. |
 | `token` | `${{ github.token }}` | Token for resolving `latest` through the GitHub API. |
@@ -39,21 +39,21 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - uses: matteopolak/setup-jai@v1
+      - uses: matteopolak/setup-jacket@v1
         with:
-          version: 0.4.3
+          version: 0.18.0
       - run: jaifmt --check .
       - run: jailint -D warnings .
-      - run: jaic build main.jai
+      - run: jaic main.jai -check
 ```
 
 ## Platforms
 
-Linux x64 and arm64, macOS arm64 and x64, Windows x64 and arm64. Releases up to 0.4.1 have no macOS x64 or Linux arm64 build; requesting one fails with a clear error. With a `tools` subset the action links just those tools, or puts the whole release folder on `PATH` if links cannot be created.
+Linux x64 and arm64, macOS arm64 and x64, Windows x64 and arm64. With a `tools` subset the action links just those tools, or puts the whole release folder on `PATH` if links cannot be created.
 
 ## Versioning
 
-Use `@v1` for compatible updates, or a full tag such as `@v1.0.0`. The action's version is independent of the toolchain version, which `version` selects. The toolchain lives in [matteopolak/jai](https://github.com/matteopolak/jai).
+Use `@v1` for compatible updates, or a full tag such as `@v1.0.0`. The action's version is independent of the toolchain version, which `version` selects. The toolchain lives in [matteopolak/jacket](https://github.com/matteopolak/jacket).
 
 ## License
 

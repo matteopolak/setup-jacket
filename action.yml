@@ -1,5 +1,5 @@
-name: Setup Jai
-description: Install the Jai toolchain (jaic, jaifmt, jailint, jailsp) from the matteopolak/jai releases.
+name: Setup Jacket
+description: Install Jacket, the Jai toolchain (jaic, jaifmt, jailint, jailsp), from the matteopolak/jacket releases.
 author: matteopolak
 branding:
   icon: download
@@ -7,7 +7,7 @@ branding:
 
 inputs:
   version:
-    description: 'Release to install: "latest", or an exact version such as 0.4.3 or v0.4.3.'
+    description: 'Release to install: "latest", or an exact version such as 0.18.0 or v0.18.0.'
     default: latest
   tools:
     description: 'Tools to put on PATH, comma or space separated, from jaic, jaifmt, jailint, jailsp; or "all" for every tool the release ships.'
@@ -44,7 +44,7 @@ runs:
       uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
       with:
         path: ${{ steps.resolve.outputs.dir }}
-        key: setup-jai-${{ steps.resolve.outputs.version }}-${{ steps.resolve.outputs.platform }}
+        key: setup-jacket-${{ steps.resolve.outputs.version }}-${{ steps.resolve.outputs.platform }}
 
     - name: Download and verify the toolchain
       shell: bash

@@ -22,7 +22,7 @@ jobs:
           - { os: ubuntu-latest, tools: 'jaic,jaifmt,jailint' }
           - { os: windows-latest, tools: 'jaic,jaifmt,jailint' }
           - { os: ubuntu-latest, tools: 'jaic' }
-          - { os: ubuntu-latest, tools: 'jaic,jaifmt,jailint,jailsp', version: '0.4.3' }
+          - { os: ubuntu-latest, tools: 'jaic,jaifmt,jailint,jailsp', version: '0.18.0' }
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - id: jai
